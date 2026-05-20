@@ -1,0 +1,22 @@
+package repositories
+
+import (
+	"context"
+
+	"github.com/murilo/contas-nubank/backend/internal/models"
+)
+
+type BillRepository interface {
+	GetAll(ctx context.Context) ([]models.Bill, error)
+	CreateMany(ctx context.Context, bills []models.Bill) error
+}
+
+type CategoryRepository interface {
+	GetAll(ctx context.Context) ([]models.Category, error)
+	Create(ctx context.Context, category models.Category) error
+}
+
+type TagRepository interface {
+	GetAll(ctx context.Context) ([]models.Tag, error)
+	Create(ctx context.Context, tag models.Tag) error
+}
