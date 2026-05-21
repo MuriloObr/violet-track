@@ -1,0 +1,110 @@
+# =========================
+# Go
+# =========================
+
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Go workspace
+go.work
+go.work.sum
+
+# Coverage
+coverage.out
+coverage.html
+*.coverprofile
+
+# Vendor (optional)
+# vendor/
+
+# Build directories
+bin/
+dist/
+build/
+
+# Logs
+*.log
+
+# Temporary files
+tmp/
+temp/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# =========================
+# Node / TypeScript
+# =========================
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+.out/
+
+# Cache
+.cache/
+.parcel-cache/
+.eslintcache
+*.tsbuildinfo
+
+# Package managers
+.pnpm-store/
+.npm/
+.yarn/
+.yarn/cache/
+.yarn/unplugged/
+.yarn/build-state.yml
+.yarn/install-state.gz
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Test coverage
+coverage/
+
+# Vite
+vite.svg
+
+# =========================
+# Docker
+# =========================
+
+# Local docker overrides
+docker-compose.override.yml
+
+# =========================
+# Project Specific
+# =========================
+
+# Generated frontend assets inside backend
+backend/web/dist/
+
+# Runtime files
+*.pid
+
+# SQLite databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Uploads / temp imported files
+uploads/
+storage/
