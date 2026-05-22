@@ -79,19 +79,17 @@ Este documento rastreia o progresso do desenvolvimento, o status das funcionalid
 
 ## 5. Qualidade e Validação
 
-**Status:** Planejado
+**Status:** ✅ Concluído
 
-| Tarefa                             | Status     | Notas |
-| :--------------------------------- | :--------- | :---- |
-| Implementação do `quality_gate.go` | ⏳ A Fazer |       |
-| Suíte de Testes Unitários          | ⏳ A Fazer |       |
-| Configuração de Linting            | ⏳ A Fazer |       |
-| Docker Multi-stage Build           | ⏳ A Fazer |       |
+| Tarefa                             | Status       | Notas                   |
+| :--------------------------------- | :----------- | :---------------------- |
+| Implementação do `quality_gate.go` | ✅ Concluído | Script centralizador    |
+| Suíte de Testes Unitários          | ✅ Concluído | Backend (Parsers/Serv.) |
+| Configuração de Linting            | ✅ Concluído | Go Lint                 |
+| Docker Multi-stage Build           | ✅ Concluído | Dockerfile otimizado    |
 
 **Próximos passos para finalizar esta etapa:**
-
-- Criar script de quality gate inicial.
-- Garantir que `go test ./...` funciona.
+- N/A (Etapa concluída)
 
 ---
 
