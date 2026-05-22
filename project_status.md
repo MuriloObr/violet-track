@@ -95,6 +95,58 @@ Este documento rastreia o progresso do desenvolvimento, o status das funcionalid
 
 ---
 
+## 6. Estatísticas e Dashboards
+
+**Status:** ⏳ Planejado
+
+| Tarefa                                        | Status     | Notas                                     |
+| :-------------------------------------------- | :--------- | :---------------------------------------- |
+| Endpoint de Agregação de Dados (Backend)      | ⏳ A Fazer | Somatórios por categoria/mês              |
+| Tela de Estatísticas (Frontend)               | ⏳ A Fazer | Nova página no dashboard                  |
+| Implementação de Gráficos (Pizza/Barras)      | ⏳ A Fazer | Visualização de distribuição de gastos    |
+| Filtros Contextuais (Período, Categoria)      | ⏳ A Fazer | Refinar visualização das estatísticas     |
+
+---
+
+## 7. Gestão de Categorias e Tags
+
+**Status:** ⏳ Planejado
+
+| Tarefa                                        | Status     | Notas                                     |
+| :-------------------------------------------- | :--------- | :---------------------------------------- |
+| Implementação de Categorias Padrão            | ⏳ A Fazer | Alimentação, Transporte, Compras, Outros  |
+| Edição Manual de Bill (Categoria/Tags)        | ⏳ A Fazer | Modal ou linha editável na tabela         |
+| Endpoints de Update para Bills                | ⏳ A Fazer | Persistir mudanças no repositório         |
+| Interface de Listagem de Tags/Categorias      | ⏳ A Fazer | Para visualização e gestão                |
+
+---
+
+## 8. Automatização e Regras
+
+**Status:** ⏳ Planejado
+
+| Tarefa                                        | Status     | Notas                                     |
+| :-------------------------------------------- | :--------- | :---------------------------------------- |
+| Modelo de Regras de Categorização             | ⏳ A Fazer | Mapeamento Texto -> Categoria             |
+| Engine de Processamento de Regras             | ⏳ A Fazer | Aplicar regras na importação/atualização  |
+| CRUD de Regras (Backend)                      | ⏳ A Fazer | API para gerenciar filtros automáticos    |
+| Interface de Gestão de Regras (Frontend)      | ⏳ A Fazer | UI para o usuário criar novas regras      |
+
+---
+
+## 9. Filtros e Pesquisa (Dashboard)
+
+**Status:** ⏳ Planejado
+
+| Tarefa                                        | Status     | Notas                                     |
+| :-------------------------------------------- | :--------- | :---------------------------------------- |
+| Busca por Texto na Listagem                   | ⏳ A Fazer | Filtrar por descrição                     |
+| Filtro por Intervalo de Datas                 | ⏳ A Fazer | Seleção de período no Dashboard           |
+| Filtro por Categoria e Tags                   | ⏳ A Fazer | Multi-seleção para refinar lista          |
+| Persistência de Estado dos Filtros            | ⏳ A Fazer | Manter filtros ao navegar                 |
+
+---
+
 ## Legenda
 
 - ✅ Concluído
