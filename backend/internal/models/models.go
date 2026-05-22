@@ -1,9 +1,14 @@
 package models
 
 import (
+	"errors"
 	"time"
 
 	"github.com/google/uuid"
+)
+
+var (
+	ErrBillNotFound = errors.New("bill not found")
 )
 
 // Bill represents a financial transaction normalized from various CSV formats.

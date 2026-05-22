@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import { cn } from "../../lib/utils"
+import { cn } from "@/lib/utils"
 
 const Table = React.forwardRef<
   HTMLTableElement,
@@ -43,7 +43,7 @@ const TableFooter = React.forwardRef<
   <tfoot
     ref={ref}
     className={cn(
-      "border-t bg-muted/50 font-medium [&>tr]:last:border-b-0",
+      "border-t bg-muted/50 font-medium [&_tr]:last:border-b-0",
       className
     )}
     {...props}

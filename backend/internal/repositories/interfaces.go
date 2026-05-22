@@ -8,7 +8,9 @@ import (
 
 type BillRepository interface {
 	GetAll(ctx context.Context) ([]models.Bill, error)
+	GetByID(ctx context.Context, id string) (models.Bill, error)
 	CreateMany(ctx context.Context, bills []models.Bill) error
+	Update(ctx context.Context, bill models.Bill) error
 }
 
 type CategoryRepository interface {

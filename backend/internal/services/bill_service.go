@@ -33,3 +33,13 @@ func (s *BillService) ImportCSV(ctx context.Context, reader io.Reader, filename 
 
 	return s.repo.CreateMany(ctx, bills)
 }
+
+func (s *BillService) Update(ctx context.Context, id string, category string) error {
+	bill, err := s.repo.GetByID(ctx, id)
+	if err != nil {
+		return err
+	}
+
+	bill.Category = category
+	return s.repo.Update(ctx, bill)
+}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Plus } from 'lucide-react';
+import { Plus, Edit2 } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import {
   Table,
@@ -11,6 +11,7 @@ import {
 } from '../components/ui/table';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { api, Bill } from '../services/api';
+import { BillEditModal } from '../components/BillEditModal';
 
 interface DashboardProps {
   onAddClick: () => void;
@@ -19,12 +20,18 @@ interface DashboardProps {
 export const Dashboard: React.FC<DashboardProps> = ({ onAddClick }) => {
   const [bills, setBills] = useState<Bill[]>([]);
   const [loading, setLoading] = useState(true);
+  const [editingBill, setEditingBill] = useState<Bill | null>(null);
 
-  useEffect(() => {
+  const fetchBills = () => {
+    setLoading(true);
     api.getBills()
       .then(setBills)
       .catch(console.error)
       .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    fetchBills();
   }, []);
 
   const formatCurrency = (value: number) => {
@@ -64,6 +71,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onAddClick }) => {
                   <TableHead>Descrição</TableHead>
                   <TableHead>Categoria</TableHead>
                   <TableHead className="text-right">Valor</TableHead>
+                  <TableHead className="text-right w-[100px]">Ações</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -75,6 +83,15 @@ export const Dashboard: React.FC<DashboardProps> = ({ onAddClick }) => {
                     <TableCell className={`text-right ${bill.value < 0 ? 'text-destructive' : 'text-primary'}`}>
                       {formatCurrency(bill.value)}
                     </TableCell>
+                    <TableCell className="text-right">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => setEditingBill(bill)}
+                      >
+                        <Edit2 className="h-4 w-4" />
+                      </Button>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -82,6 +99,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ onAddClick }) => {
           )}
         </CardContent>
       </Card>
+
+      <BillEditModal
+        bill={editingBill}
+        isOpen={!!editingBill}
+        onClose={() => setEditingBill(null)}
+        onSave={fetchBills}
+      />
     </div>
   );
 };
