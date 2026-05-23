@@ -33,7 +33,9 @@ func (r *Router) Register(app *fiber.App) {
 
 	// Categories
 	api.Get("/categories", r.categoryHandler.GetAll)
+	api.Post("/categories", r.categoryHandler.Create)
 
 	// Tags
 	api.Get("/tags", r.tagHandler.GetAll)
+	api.Post("/tags", r.tagHandler.Create)
 }

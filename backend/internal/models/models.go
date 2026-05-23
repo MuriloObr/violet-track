@@ -18,6 +18,7 @@ type Bill struct {
 	Value       float64   `json:"value"`
 	Category    string    `json:"category"`
 	Date        time.Time `json:"date"`
+	Tags        []Tag     `json:"tags"`
 }
 
 // Category represents a grouping for bills.

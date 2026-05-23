@@ -29,6 +29,7 @@ func main() {
 	billRepo := memory.NewBillRepository()
 	categoryRepo := memory.NewCategoryRepository()
 	tagRepo := memory.NewTagRepository()
+	billTagRepo := memory.NewBillTagRepository()
 
 	// Seed default categories
 	defaultCategories := []string{"Alimentação", "Transporte", "Moradia", "Lazer", "Saúde", "Educação", "Outros"}
@@ -43,7 +44,7 @@ func main() {
 	detector := parsers.NewDetector()
 
 	// Initialize Services
-	billService := services.NewBillService(billRepo, detector)
+	billService := services.NewBillService(billRepo, tagRepo, billTagRepo, detector)
 	categoryService := services.NewCategoryService(categoryRepo)
 	tagService := services.NewTagService(tagRepo)
 

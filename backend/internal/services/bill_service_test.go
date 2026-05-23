@@ -11,8 +11,10 @@ import (
 
 func TestBillService_ImportCSV(t *testing.T) {
 	repo := memory.NewBillRepository()
+	tagRepo := memory.NewTagRepository()
+	billTagRepo := memory.NewBillTagRepository()
 	detector := parsers.NewDetector()
-	service := NewBillService(repo, detector)
+	service := NewBillService(repo, tagRepo, billTagRepo, detector)
 	ctx := context.Background()
 
 	t.Run("Import Successful Card Report", func(t *testing.T) {
@@ -56,8 +58,10 @@ func TestBillService_ImportCSV(t *testing.T) {
 
 func TestBillService_Update(t *testing.T) {
 	repo := memory.NewBillRepository()
+	tagRepo := memory.NewTagRepository()
+	billTagRepo := memory.NewBillTagRepository()
 	detector := parsers.NewDetector()
-	service := NewBillService(repo, detector)
+	service := NewBillService(repo, tagRepo, billTagRepo, detector)
 	ctx := context.Background()
 
 	// Setup: Import a bill to update
@@ -68,7 +72,7 @@ func TestBillService_Update(t *testing.T) {
 
 	t.Run("Update Successful", func(t *testing.T) {
 		newCategory := "Alimentação"
-		err := service.Update(ctx, id, newCategory)
+		err := service.Update(ctx, id, newCategory, []string{})
 		if err != nil {
 			t.Fatalf("Expected no error, got %v", err)
 		}
@@ -80,14 +84,14 @@ func TestBillService_Update(t *testing.T) {
 	})
 
 	t.Run("Update Non-existent Bill", func(t *testing.T) {
-		err := service.Update(ctx, "00000000-0000-0000-0000-000000000000", "Outros")
+		err := service.Update(ctx, "00000000-0000-0000-0000-000000000000", "Outros", []string{})
 		if err == nil {
 			t.Error("Expected error for non-existent bill, got nil")
 		}
 	})
 
 	t.Run("Update Invalid UUID", func(t *testing.T) {
-		err := service.Update(ctx, "invalid-uuid", "Outros")
+		err := service.Update(ctx, "invalid-uuid", "Outros", []string{})
 		if err == nil {
 			t.Error("Expected error for invalid UUID, got nil")
 		}

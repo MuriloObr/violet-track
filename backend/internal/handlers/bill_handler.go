@@ -53,7 +53,8 @@ func (h *BillHandler) Import(c *fiber.Ctx) error {
 func (h *BillHandler) Update(c *fiber.Ctx) error {
 	id := c.Params("id")
 	var req struct {
-		Category string `json:"category"`
+		Category string   `json:"category"`
+		Tags     []string `json:"tags"`
 	}
 
 	if err := c.BodyParser(&req); err != nil {
@@ -62,7 +63,7 @@ func (h *BillHandler) Update(c *fiber.Ctx) error {
 		})
 	}
 
-	if err := h.service.Update(c.Context(), id, req.Category); err != nil {
+	if err := h.service.Update(c.Context(), id, req.Category, req.Tags); err != nil {
 		status := fiber.StatusInternalServerError
 		if err.Error() == "bill not found" {
 			status = fiber.StatusNotFound

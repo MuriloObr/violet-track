@@ -1,9 +1,15 @@
+export interface Tag {
+  id: string;
+  name: string;
+}
+
 export interface Bill {
   id: string;
   description: string;
   value: number;
   category: string;
   date: string;
+  tags: Tag[];
 }
 
 export interface Category {
@@ -26,6 +32,32 @@ export const api = {
     return response.json();
   },
 
+  async createCategory(name: string): Promise<Category> {
+    const response = await fetch(`${API_BASE_URL}/categories`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name }),
+    });
+    if (!response.ok) throw new Error('Failed to create category');
+    return response.json();
+  },
+
+  async getTags(): Promise<Tag[]> {
+    const response = await fetch(`${API_BASE_URL}/tags`);
+    if (!response.ok) throw new Error('Failed to fetch tags');
+    return response.json();
+  },
+
+  async createTag(name: string): Promise<Tag> {
+    const response = await fetch(`${API_BASE_URL}/tags`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name }),
+    });
+    if (!response.ok) throw new Error('Failed to create tag');
+    return response.json();
+  },
+
   async importCSV(file: File): Promise<void> {
     const formData = new FormData();
     formData.append('file', file);
@@ -41,7 +73,7 @@ export const api = {
     }
   },
 
-  async updateBill(id: string, data: Partial<Bill>): Promise<void> {
+  async updateBill(id: string, data: { category?: string; tags?: string[] }): Promise<void> {
     const response = await fetch(`${API_BASE_URL}/bills/${id}`, {
       method: 'PATCH',
       headers: {
