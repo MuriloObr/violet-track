@@ -1,12 +1,15 @@
 package main
 
 import (
+	"context"
 	"log"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
+	"github.com/google/uuid"
 	"github.com/murilo/contas-nubank/backend/internal/handlers"
+	"github.com/murilo/contas-nubank/backend/internal/models"
 	"github.com/murilo/contas-nubank/backend/internal/parsers"
 	"github.com/murilo/contas-nubank/backend/internal/repositories/memory"
 	"github.com/murilo/contas-nubank/backend/internal/routes"
@@ -26,12 +29,22 @@ func main() {
 	billRepo := memory.NewBillRepository()
 	categoryRepo := memory.NewCategoryRepository()
 	tagRepo := memory.NewTagRepository()
+	billTagRepo := memory.NewBillTagRepository()
+
+	// Seed default categories
+	defaultCategories := []string{"Alimentação", "Transporte", "Moradia", "Lazer", "Saúde", "Educação", "Outros"}
+	for _, name := range defaultCategories {
+		categoryRepo.Create(context.Background(), models.Category{
+			ID:   uuid.New(),
+			Name: name,
+		})
+	}
 
 	// Initialize Utilities
 	detector := parsers.NewDetector()
 
 	// Initialize Services
-	billService := services.NewBillService(billRepo, detector)
+	billService := services.NewBillService(billRepo, tagRepo, billTagRepo, detector)
 	categoryService := services.NewCategoryService(categoryRepo)
 	tagService := services.NewTagService(tagRepo)
 

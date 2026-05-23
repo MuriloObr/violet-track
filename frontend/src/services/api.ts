@@ -1,9 +1,20 @@
+export interface Tag {
+  id: string;
+  name: string;
+}
+
 export interface Bill {
   id: string;
   description: string;
   value: number;
   category: string;
   date: string;
+  tags: Tag[];
+}
+
+export interface Category {
+  id: string;
+  name: string;
 }
 
 const API_BASE_URL = '/api';
@@ -12,6 +23,38 @@ export const api = {
   async getBills(): Promise<Bill[]> {
     const response = await fetch(`${API_BASE_URL}/bills`);
     if (!response.ok) throw new Error('Failed to fetch bills');
+    return response.json();
+  },
+
+  async getCategories(): Promise<Category[]> {
+    const response = await fetch(`${API_BASE_URL}/categories`);
+    if (!response.ok) throw new Error('Failed to fetch categories');
+    return response.json();
+  },
+
+  async createCategory(name: string): Promise<Category> {
+    const response = await fetch(`${API_BASE_URL}/categories`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name }),
+    });
+    if (!response.ok) throw new Error('Failed to create category');
+    return response.json();
+  },
+
+  async getTags(): Promise<Tag[]> {
+    const response = await fetch(`${API_BASE_URL}/tags`);
+    if (!response.ok) throw new Error('Failed to fetch tags');
+    return response.json();
+  },
+
+  async createTag(name: string): Promise<Tag> {
+    const response = await fetch(`${API_BASE_URL}/tags`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name }),
+    });
+    if (!response.ok) throw new Error('Failed to create tag');
     return response.json();
   },
 
@@ -27,6 +70,21 @@ export const api = {
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.error || 'Failed to import CSV');
+    }
+  },
+
+  async updateBill(id: string, data: { category?: string; tags?: string[] }): Promise<void> {
+    const response = await fetch(`${API_BASE_URL}/bills/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to update bill');
     }
   }
 };

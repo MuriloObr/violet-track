@@ -112,10 +112,10 @@ Este documento rastreia o progresso do desenvolvimento, o status das funcionalid
 
 | Tarefa                                        | Status     | Notas                                     |
 | :-------------------------------------------- | :--------- | :---------------------------------------- |
-| Implementação de Categorias Padrão            | ⏳ A Fazer | Alimentação, Transporte, Compras, Outros  |
-| Edição Manual de Bill (Categoria/Tags)        | ⏳ A Fazer | Modal ou linha editável na tabela         |
-| Endpoints de Update para Bills                | ⏳ A Fazer | Persistir mudanças no repositório         |
-| Interface de Listagem de Tags/Categorias      | ⏳ A Fazer | Para visualização e gestão                |
+| Implementação de Categorias Padrão            | ✅ Concluído | Alimentação, Transporte, Compras, Outros  |
+| Edição Manual de Bill (Categoria/Tags)        | ✅ Concluído | Modal integrado na tabela do dashboard    |
+| Endpoints de Update para Bills                | ✅ Concluído | PATCH /api/bills/:id                      |
+| Interface de Listagem de Tags/Categorias      | ✅ Concluído | Para visualização e gestão                |
 
 ---
 

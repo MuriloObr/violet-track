@@ -49,3 +49,29 @@ func (h *BillHandler) Import(c *fiber.Ctx) error {
 		"message": "Imported successfully",
 	})
 }
+
+func (h *BillHandler) Update(c *fiber.Ctx) error {
+	id := c.Params("id")
+	var req struct {
+		Category string   `json:"category"`
+		Tags     []string `json:"tags"`
+	}
+
+	if err := c.BodyParser(&req); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Invalid request body",
+		})
+	}
+
+	if err := h.service.Update(c.Context(), id, req.Category, req.Tags); err != nil {
+		status := fiber.StatusInternalServerError
+		if err.Error() == "bill not found" {
+			status = fiber.StatusNotFound
+		}
+		return c.Status(status).JSON(fiber.Map{
+			"error": err.Error(),
+		})
+	}
+
+	return c.SendStatus(fiber.StatusNoContent)
+}

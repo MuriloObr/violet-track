@@ -321,6 +321,8 @@ All generated code MUST:
 Frontend code must:
 
 - Use reusable components
+- UI components must be build with shadcn/ui and tailwindcss
+- Use PNPM as package manager
 - Keep state localized when possible
 - Separate UI from API logic
 - Avoid large components

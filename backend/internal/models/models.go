@@ -1,9 +1,14 @@
 package models
 
 import (
+	"errors"
 	"time"
 
 	"github.com/google/uuid"
+)
+
+var (
+	ErrBillNotFound = errors.New("bill not found")
 )
 
 // Bill represents a financial transaction normalized from various CSV formats.
@@ -13,6 +18,7 @@ type Bill struct {
 	Value       float64   `json:"value"`
 	Category    string    `json:"category"`
 	Date        time.Time `json:"date"`
+	Tags        []Tag     `json:"tags"`
 }
 
 // Category represents a grouping for bills.

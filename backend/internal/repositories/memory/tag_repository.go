@@ -4,6 +4,7 @@ import (
 	"context"
 	"sync"
 
+	"github.com/google/uuid"
 	"github.com/murilo/contas-nubank/backend/internal/models"
 )
 
@@ -25,6 +26,24 @@ func (r *TagRepository) GetAll(ctx context.Context) ([]models.Tag, error) {
 	result := make([]models.Tag, len(r.tags))
 	copy(result, r.tags)
 	return result, nil
+}
+
+func (r *TagRepository) GetByID(ctx context.Context, id string) (models.Tag, error) {
+	uid, err := uuid.Parse(id)
+	if err != nil {
+		return models.Tag{}, err
+	}
+
+	r.mu.RLock()
+	defer r.mu.RUnlock()
+
+	for _, t := range r.tags {
+		if t.ID == uid {
+			return t, nil
+		}
+	}
+
+	return models.Tag{}, nil
 }
 
 func (r *TagRepository) Create(ctx context.Context, tag models.Tag) error {

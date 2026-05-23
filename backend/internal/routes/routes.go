@@ -29,10 +29,13 @@ func (r *Router) Register(app *fiber.App) {
 	// Bills
 	api.Get("/bills", r.billHandler.GetAll)
 	api.Post("/bills/import", r.billHandler.Import)
+	api.Patch("/bills/:id", r.billHandler.Update)
 
 	// Categories
 	api.Get("/categories", r.categoryHandler.GetAll)
+	api.Post("/categories", r.categoryHandler.Create)
 
 	// Tags
 	api.Get("/tags", r.tagHandler.GetAll)
+	api.Post("/tags", r.tagHandler.Create)
 }
