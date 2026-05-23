@@ -13,8 +13,10 @@ func TestBillService_ImportCSV(t *testing.T) {
 	repo := memory.NewBillRepository()
 	tagRepo := memory.NewTagRepository()
 	billTagRepo := memory.NewBillTagRepository()
+	ruleRepo := memory.NewRuleRepository()
+	ruleService := NewRuleService(ruleRepo)
 	detector := parsers.NewDetector()
-	service := NewBillService(repo, tagRepo, billTagRepo, detector)
+	service := NewBillService(repo, tagRepo, billTagRepo, ruleService, detector)
 	ctx := context.Background()
 
 	t.Run("Import Successful Card Report", func(t *testing.T) {
@@ -60,8 +62,10 @@ func TestBillService_Update(t *testing.T) {
 	repo := memory.NewBillRepository()
 	tagRepo := memory.NewTagRepository()
 	billTagRepo := memory.NewBillTagRepository()
+	ruleRepo := memory.NewRuleRepository()
+	ruleService := NewRuleService(ruleRepo)
 	detector := parsers.NewDetector()
-	service := NewBillService(repo, tagRepo, billTagRepo, detector)
+	service := NewBillService(repo, tagRepo, billTagRepo, ruleService, detector)
 	ctx := context.Background()
 
 	// Setup: Import a bill to update

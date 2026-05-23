@@ -31,3 +31,11 @@ type BillTagRepository interface {
 	AddTagToBill(ctx context.Context, billID uuid.UUID, tagID uuid.UUID) error
 	RemoveAllTagsFromBill(ctx context.Context, billID uuid.UUID) error
 }
+
+type RuleRepository interface {
+	GetAll(ctx context.Context) ([]models.Rule, error)
+	GetByID(ctx context.Context, id string) (models.Rule, error)
+	Create(ctx context.Context, rule models.Rule) error
+	Update(ctx context.Context, rule models.Rule) error
+	Delete(ctx context.Context, id string) error
+}
