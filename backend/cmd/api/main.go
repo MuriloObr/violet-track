@@ -30,6 +30,7 @@ func main() {
 	categoryRepo := memory.NewCategoryRepository()
 	tagRepo := memory.NewTagRepository()
 	billTagRepo := memory.NewBillTagRepository()
+	ruleRepo := memory.NewRuleRepository()
 
 	// Seed default categories
 	defaultCategories := []string{"Alimentação", "Transporte", "Moradia", "Lazer", "Saúde", "Educação", "Outros"}
@@ -44,7 +45,8 @@ func main() {
 	detector := parsers.NewDetector()
 
 	// Initialize Services
-	billService := services.NewBillService(billRepo, tagRepo, billTagRepo, detector)
+	ruleService := services.NewRuleService(ruleRepo)
+	billService := services.NewBillService(billRepo, tagRepo, billTagRepo, ruleService, detector)
 	categoryService := services.NewCategoryService(categoryRepo)
 	tagService := services.NewTagService(tagRepo)
 
@@ -52,9 +54,10 @@ func main() {
 	billHandler := handlers.NewBillHandler(billService)
 	categoryHandler := handlers.NewCategoryHandler(categoryService)
 	tagHandler := handlers.NewTagHandler(tagService)
+	ruleHandler := handlers.NewRuleHandler(ruleService, billService)
 
 	// Register Routes
-	router := routes.NewRouter(billHandler, categoryHandler, tagHandler)
+	router := routes.NewRouter(billHandler, categoryHandler, tagHandler, ruleHandler)
 	router.Register(app)
 
 	// Health check

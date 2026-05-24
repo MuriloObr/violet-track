@@ -14,6 +14,7 @@ type BillService struct {
 	repo        repositories.BillRepository
 	tagRepo     repositories.TagRepository
 	billTagRepo repositories.BillTagRepository
+	ruleService *RuleService
 	detector    *parsers.Detector
 }
 
@@ -21,12 +22,14 @@ func NewBillService(
 	repo repositories.BillRepository,
 	tagRepo repositories.TagRepository,
 	billTagRepo repositories.BillTagRepository,
+	ruleService *RuleService,
 	detector *parsers.Detector,
 ) *BillService {
 	return &BillService{
 		repo:        repo,
 		tagRepo:     tagRepo,
 		billTagRepo: billTagRepo,
+		ruleService: ruleService,
 		detector:    detector,
 	}
 }
@@ -62,7 +65,40 @@ func (s *BillService) ImportCSV(ctx context.Context, reader io.Reader, filename 
 		return err
 	}
 
+	for i := range bills {
+		s.ruleService.ApplyRules(ctx, &bills[i])
+	}
+
 	return s.repo.CreateMany(ctx, bills)
+}
+
+func (s *BillService) ApplyRulesToAll(ctx context.Context) error {
+	bills, err := s.GetAll(ctx)
+	if err != nil {
+		return err
+	}
+
+	for _, bill := range bills {
+		modified, err := s.ruleService.ApplyRules(ctx, &bill)
+		if err != nil {
+			return err
+		}
+		if modified {
+			if err := s.repo.Update(ctx, bill); err != nil {
+				return err
+			}
+			// Update tags
+			if err := s.billTagRepo.RemoveAllTagsFromBill(ctx, bill.ID); err != nil {
+				return err
+			}
+			for _, tag := range bill.Tags {
+				if err := s.billTagRepo.AddTagToBill(ctx, bill.ID, tag.ID); err != nil {
+					return err
+				}
+			}
+		}
+	}
+	return nil
 }
 
 func (s *BillService) Update(ctx context.Context, id string, category string, tagIDs []string) error {

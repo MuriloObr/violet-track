@@ -17,6 +17,16 @@ export interface Category {
   name: string;
 }
 
+export interface Rule {
+  id?: string;
+  name: string;
+  field: 'description' | 'value';
+  operator: 'contains' | 'equals' | 'gt' | 'lt';
+  value: string;
+  target_category?: string;
+  target_tag_ids?: string[];
+}
+
 const API_BASE_URL = '/api';
 
 export const api = {
@@ -86,5 +96,45 @@ export const api = {
       const errorData = await response.json();
       throw new Error(errorData.error || 'Failed to update bill');
     }
+  },
+
+  async getRules(): Promise<Rule[]> {
+    const response = await fetch(`${API_BASE_URL}/rules`);
+    if (!response.ok) throw new Error('Failed to fetch rules');
+    return response.json();
+  },
+
+  async createRule(rule: Rule): Promise<Rule> {
+    const response = await fetch(`${API_BASE_URL}/rules`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(rule),
+    });
+    if (!response.ok) throw new Error('Failed to create rule');
+    return response.json();
+  },
+
+  async updateRule(id: string, rule: Rule): Promise<Rule> {
+    const response = await fetch(`${API_BASE_URL}/rules/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(rule),
+    });
+    if (!response.ok) throw new Error('Failed to update rule');
+    return response.json();
+  },
+
+  async deleteRule(id: string): Promise<void> {
+    const response = await fetch(`${API_BASE_URL}/rules/${id}`, {
+      method: 'DELETE',
+    });
+    if (!response.ok) throw new Error('Failed to delete rule');
+  },
+
+  async applyRules(): Promise<void> {
+    const response = await fetch(`${API_BASE_URL}/rules/apply`, {
+      method: 'POST',
+    });
+    if (!response.ok) throw new Error('Failed to apply rules');
   }
 };

@@ -9,17 +9,20 @@ type Router struct {
 	billHandler     *handlers.BillHandler
 	categoryHandler *handlers.CategoryHandler
 	tagHandler      *handlers.TagHandler
+	ruleHandler     *handlers.RuleHandler
 }
 
 func NewRouter(
 	billHandler *handlers.BillHandler,
 	categoryHandler *handlers.CategoryHandler,
 	tagHandler *handlers.TagHandler,
+	ruleHandler *handlers.RuleHandler,
 ) *Router {
 	return &Router{
 		billHandler:     billHandler,
 		categoryHandler: categoryHandler,
 		tagHandler:      tagHandler,
+		ruleHandler:     ruleHandler,
 	}
 }
 
@@ -38,4 +41,11 @@ func (r *Router) Register(app *fiber.App) {
 	// Tags
 	api.Get("/tags", r.tagHandler.GetAll)
 	api.Post("/tags", r.tagHandler.Create)
+
+	// Rules
+	api.Get("/rules", r.ruleHandler.GetAll)
+	api.Post("/rules", r.ruleHandler.Create)
+	api.Put("/rules/:id", r.ruleHandler.Update)
+	api.Delete("/rules/:id", r.ruleHandler.Delete)
+	api.Post("/rules/apply", r.ruleHandler.Apply)
 }

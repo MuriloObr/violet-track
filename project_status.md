@@ -121,14 +121,14 @@ Este documento rastreia o progresso do desenvolvimento, o status das funcionalid
 
 ## 8. Automatização e Regras
 
-**Status:** ⏳ Planejado
+**Status:** ✅ Concluído
 
-| Tarefa                                        | Status     | Notas                                     |
-| :-------------------------------------------- | :--------- | :---------------------------------------- |
-| Modelo de Regras de Categorização             | ⏳ A Fazer | Mapeamento Texto -> Categoria             |
-| Engine de Processamento de Regras             | ⏳ A Fazer | Aplicar regras na importação/atualização  |
-| CRUD de Regras (Backend)                      | ⏳ A Fazer | API para gerenciar filtros automáticos    |
-| Interface de Gestão de Regras (Frontend)      | ⏳ A Fazer | UI para o usuário criar novas regras      |
+| Tarefa                                        | Status       | Notas                                     |
+| :-------------------------------------------- | :----------- | :---------------------------------------- |
+| Modelo de Regras de Categorização             | ✅ Concluído | Mapeamento Texto/Valor -> Categoria/Tags  |
+| Engine de Processamento de Regras             | ✅ Concluído | Aplicar regras na importação/atualização  |
+| CRUD de Regras (Backend)                      | ✅ Concluído | API para gerenciar filtros automáticos    |
+| Interface de Gestão de Regras (Frontend)      | ✅ Concluído | UI para o usuário criar novas regras      |
 
 ---
 
