@@ -99,10 +99,10 @@ Este documento rastreia o progresso do desenvolvimento, o status das funcionalid
 
 | Tarefa                                        | Status     | Notas                                     |
 | :-------------------------------------------- | :--------- | :---------------------------------------- |
-| Endpoint de Agregação de Dados (Backend)      | ⏳ A Fazer | Somatórios por categoria/mês              |
-| Tela de Estatísticas (Frontend)               | ⏳ A Fazer | Nova página no dashboard                  |
-| Implementação de Gráficos (Pizza/Barras)      | ⏳ A Fazer | Visualização de distribuição de gastos    |
-| Filtros Contextuais (Período, Categoria)      | ⏳ A Fazer | Refinar visualização das estatísticas     |
+| Processamento de Dados no Cliente             | ⏳ A Fazer | Agregação e cálculos feitos no Frontend   |
+| Gráficos de Distribuição (Pizza e Barras)     | ⏳ A Fazer | Visualização por Categoria e Tags         |
+| Gráfico de Evolução Temporal (Linhas)         | ⏳ A Fazer | Histórico de gastos ao longo do tempo     |
+| Integração de Filtros (Data, Cat, Tags)       | ⏳ A Fazer | Filtros aplicados em tempo real nos cards |
 
 ---
 
