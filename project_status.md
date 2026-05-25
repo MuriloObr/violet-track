@@ -134,14 +134,14 @@ Este documento rastreia o progresso do desenvolvimento, o status das funcionalid
 
 ## 9. Filtros e Pesquisa (Dashboard)
 
-**Status:** ⏳ Planejado
+**Status:** ✅ Concluído
 
-| Tarefa                                        | Status     | Notas                                     |
-| :-------------------------------------------- | :--------- | :---------------------------------------- |
-| Busca por Texto na Listagem                   | ⏳ A Fazer | Filtrar por descrição                     |
-| Filtro por Intervalo de Datas                 | ⏳ A Fazer | Seleção de período no Dashboard           |
-| Filtro por Categoria e Tags                   | ⏳ A Fazer | Multi-seleção para refinar lista          |
-| Persistência de Estado dos Filtros            | ⏳ A Fazer | Manter filtros ao navegar                 |
+| Tarefa                                        | Status       | Notas                                     |
+| :-------------------------------------------- | :----------- | :---------------------------------------- |
+| Busca por Texto na Listagem                   | ✅ Concluído | Filtrar por descrição                     |
+| Filtro por Intervalo de Datas                 | ✅ Concluído | Seleção de período no Dashboard           |
+| Filtro por Categoria e Tags                   | ✅ Concluído | Multi-seleção para refinar lista          |
+| Persistência de Estado dos Filtros            | ✅ Concluído | Manter filtros ao navegar (localStorage)  |
 
 ---
 
