@@ -22,6 +22,16 @@ import {
 import { api, Bill, Category, Tag } from '../services/api';
 import { BillEditModal } from '../components/BillEditModal';
 import { getColorForString } from '../lib/colors';
+import { StatsCards } from '../components/StatsCards';
+import { CategoryPieChart } from '../components/CategoryPieChart';
+import { TagBarChart } from '../components/TagBarChart';
+import { SpendingAreaChart } from '../components/SpendingAreaChart';
+import {
+  aggregateByCategory,
+  aggregateByTag,
+  aggregateEvolution,
+  calculateSummary,
+} from '../lib/aggregations';
 
 interface DashboardProps {
   onAddClick: () => void;
@@ -95,6 +105,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ onAddClick }) => {
     });
   }, [bills, filters]);
 
+  const summary = useMemo(() => calculateSummary(filteredBills), [filteredBills]);
+  const categoryData = useMemo(() => aggregateByCategory(filteredBills), [filteredBills]);
+  const tagData = useMemo(() => aggregateByTag(filteredBills), [filteredBills]);
+  const evolutionData = useMemo(() => aggregateEvolution(filteredBills), [filteredBills]);
+
   const handleResetFilters = () => {
     setFilters({
       search: '',
@@ -124,6 +139,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ onAddClick }) => {
           <Plus className="mr-2 h-4 w-4" /> Adicionar
         </Button>
       </div>
+
+      <StatsCards data={summary} />
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-6 items-end">
         <div className="lg:col-span-2 space-y-2">
@@ -195,6 +212,12 @@ export const Dashboard: React.FC<DashboardProps> = ({ onAddClick }) => {
             </Button>
           )}
         </div>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <CategoryPieChart data={categoryData} />
+        <TagBarChart data={tagData} />
+        <SpendingAreaChart data={evolutionData} />
       </div>
 
       <Card>
