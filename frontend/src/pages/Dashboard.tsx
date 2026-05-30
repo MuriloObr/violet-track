@@ -26,10 +26,12 @@ import { StatsCards } from '../components/StatsCards';
 import { CategoryPieChart } from '../components/CategoryPieChart';
 import { TagBarChart } from '../components/TagBarChart';
 import { SpendingAreaChart } from '../components/SpendingAreaChart';
+import { MonthlyAverageOverview } from '../components/MonthlyAverageOverview';
 import {
   aggregateByCategory,
   aggregateByTag,
   aggregateEvolution,
+  aggregateCategoryAverages,
   calculateSummary,
 } from '../lib/aggregations';
 
@@ -109,6 +111,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onAddClick }) => {
   const categoryData = useMemo(() => aggregateByCategory(filteredBills), [filteredBills]);
   const tagData = useMemo(() => aggregateByTag(filteredBills), [filteredBills]);
   const evolutionData = useMemo(() => aggregateEvolution(filteredBills), [filteredBills]);
+  const averageData = useMemo(() => aggregateCategoryAverages(filteredBills), [filteredBills]);
 
   const handleResetFilters = () => {
     setFilters({
@@ -141,6 +144,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ onAddClick }) => {
       </div>
 
       <StatsCards data={summary} />
+
+      <MonthlyAverageOverview data={averageData} />
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-6 items-end">
         <div className="lg:col-span-2 space-y-2">

@@ -27,6 +27,14 @@ export interface SummaryData {
   balance: number;
 }
 
+export interface CategoryAverageData {
+  category: string;
+  average: number;
+  total: number;
+  monthsCount: number;
+  fill: string;
+}
+
 export const aggregateByCategory = (bills: Bill[]): CategoryData[] => {
   console.log('Aggregating by Category, total bills:', bills.length);
   const categories: Record<string, number> = {};
@@ -73,6 +81,36 @@ export const aggregateByTag = (bills: Bill[]): TagData[] => {
 
   console.log('Tag result:', result);
   return result;
+};
+
+export const aggregateCategoryAverages = (bills: Bill[]): CategoryAverageData[] => {
+  const categoryStats: Record<string, { total: number; months: Set<string> }> = {};
+
+  bills.forEach((bill) => {
+    // Only expenses for monthly average
+    if (bill.value < 0) {
+      const cat = bill.category && bill.category.trim() !== '' ? bill.category : 'Sem Categoria';
+      const date = parseISO(bill.date);
+      const monthKey = format(startOfMonth(date), 'yyyy-MM');
+
+      if (!categoryStats[cat]) {
+        categoryStats[cat] = { total: 0, months: new Set() };
+      }
+
+      categoryStats[cat].total += Math.abs(bill.value);
+      categoryStats[cat].months.add(monthKey);
+    }
+  });
+
+  return Object.entries(categoryStats)
+    .map(([category, stats]) => ({
+      category,
+      total: stats.total,
+      monthsCount: stats.months.size,
+      average: stats.total / (stats.months.size || 1),
+      fill: getHexColorForString(category),
+    }))
+    .sort((a, b) => b.average - a.average);
 };
 
 export const aggregateEvolution = (bills: Bill[]): EvolutionData[] => {
