@@ -1,6 +1,7 @@
 import { Bill } from '../services/api';
 import { startOfMonth, format, parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { getHexColorForString } from './chart-colors';
 
 export interface CategoryData {
   category: string;
@@ -26,17 +27,6 @@ export interface SummaryData {
   balance: number;
 }
 
-const COLORS = [
-  'var(--chart-1)',
-  'var(--chart-2)',
-  'var(--chart-3)',
-  'var(--chart-4)',
-  'var(--chart-5)',
-];
-
-// Helper to get a stable color for a string
-const getColorForIndex = (index: number) => COLORS[index % COLORS.length];
-
 export const aggregateByCategory = (bills: Bill[]): CategoryData[] => {
   console.log('Aggregating by Category, total bills:', bills.length);
   const categories: Record<string, number> = {};
@@ -50,10 +40,10 @@ export const aggregateByCategory = (bills: Bill[]): CategoryData[] => {
 
   const result = Object.entries(categories)
     .sort((a, b) => b[1] - a[1])
-    .map(([category, total], index) => ({
+    .map(([category, total]) => ({
       category,
       total,
-      fill: getColorForIndex(index),
+      fill: getHexColorForString(category),
     }));
   
   console.log('Category result:', result);
@@ -75,10 +65,10 @@ export const aggregateByTag = (bills: Bill[]): TagData[] => {
   const result = Object.entries(tags)
     .sort((a, b) => b[1] - a[1])
     .slice(0, 10)
-    .map(([tag, total], index) => ({
+    .map(([tag, total]) => ({
       tag,
       total,
-      fill: getColorForIndex(index),
+      fill: getHexColorForString(tag),
     }));
 
   console.log('Tag result:', result);
