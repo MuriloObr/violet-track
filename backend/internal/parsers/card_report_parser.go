@@ -70,7 +70,7 @@ func (p *CardReportParser) Parse(reader io.Reader, filename string) ([]models.Bi
 			ID:          uuid.New(),
 			Date:        date,
 			Description: strings.TrimSpace(record[1]),
-			Value:       value,
+			Value:       -value, // Negate to normalize as expense
 		})
 	}
 

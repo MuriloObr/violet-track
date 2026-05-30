@@ -69,7 +69,20 @@ func (s *BillService) ImportCSV(ctx context.Context, reader io.Reader, filename 
 		s.ruleService.ApplyRules(ctx, &bills[i])
 	}
 
-	return s.repo.CreateMany(ctx, bills)
+	if err := s.repo.CreateMany(ctx, bills); err != nil {
+		return err
+	}
+
+	// Persist Tags
+	for _, bill := range bills {
+		for _, tag := range bill.Tags {
+			if err := s.billTagRepo.AddTagToBill(ctx, bill.ID, tag.ID); err != nil {
+				return err
+			}
+		}
+	}
+
+	return nil
 }
 
 func (s *BillService) ApplyRulesToAll(ctx context.Context) error {

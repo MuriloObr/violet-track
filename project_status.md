@@ -95,14 +95,14 @@ Este documento rastreia o progresso do desenvolvimento, o status das funcionalid
 
 ## 6. Estatísticas e Dashboards
 
-**Status:** ⏳ Planejado
+**Status:** ✅ Concluído
 
-| Tarefa                                        | Status     | Notas                                     |
-| :-------------------------------------------- | :--------- | :---------------------------------------- |
-| Processamento de Dados no Cliente             | ⏳ A Fazer | Agregação e cálculos feitos no Frontend   |
-| Gráficos de Distribuição (Pizza e Barras)     | ⏳ A Fazer | Visualização por Categoria e Tags         |
-| Gráfico de Evolução Temporal (Linhas)         | ⏳ A Fazer | Histórico de gastos ao longo do tempo     |
-| Integração de Filtros (Data, Cat, Tags)       | ⏳ A Fazer | Filtros aplicados em tempo real nos cards |
+| Tarefa                                        | Status       | Notas                                     |
+| :-------------------------------------------- | :----------- | :---------------------------------------- |
+| Processamento de Dados no Cliente             | ✅ Concluído | Agregação e cálculos feitos no Frontend   |
+| Gráficos de Distribuição (Pizza e Barras)     | ✅ Concluído | Visualização por Categoria e Tags         |
+| Gráfico de Evolução Temporal (Linhas)         | ✅ Concluído | Histórico de gastos ao longo do tempo     |
+| Integração de Filtros (Data, Cat, Tags)       | ✅ Concluído | Filtros aplicados em tempo real nos cards |
 
 ---
 
